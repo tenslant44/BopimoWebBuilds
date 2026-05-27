@@ -1,0 +1,1 @@
+Finished build of the 2019 prototype. Only 2 textures are missing, but it doesnt matter.
