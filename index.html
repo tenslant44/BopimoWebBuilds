@@ -51,7 +51,7 @@
 
     <div class="category-section prerelease">
         <h2>Prerelease Clients</h2>
-        <a class="game-btn" href="prerelease/1.0.5rc1/index.html">1.0.5rc1</a>
+        <a class="game-btn client-b2e1" href="prerelease/1.0.5rc1/index.html">1.0.5rc1</a>
     </div>
 
     <div class="category-section finished">
@@ -69,29 +69,34 @@
             button.addEventListener('click', function(e) {
                 e.preventDefault();
                 const targetUrl = this.getAttribute('href');
+                const isB2E1Client = this.classList.contains('client-b2e1');
 
-                // Quick test to check if the client web folder path actually exists
+                // Quick backend verification to see if the game files exist
                 fetch(targetUrl, { method: 'HEAD' })
                 .then(response => {
                     if (response.ok) {
-                        // The game folder is online! Go to it normally
+                        // Success: Load the live game build!
                         window.location.href = targetUrl;
                     } else {
-                        // 404 Error: Open JUST the raw image file directly in a new tab
-                        openRawImage();
+                        // 404 Error: Send to the designated File Garden image path
+                        handleRedirect(isB2E1Client);
                     }
                 })
                 .catch(() => {
-                    // Fallback for CORS/Network restrictions: Open raw image in a new tab
-                    openRawImage();
+                    // Fail-safe network block trigger
+                    handleRedirect(isB2E1Client);
                 });
             });
         });
 
-        function openRawImage() {
-            // Uses a fully verified absolute path pointing directly to your image file
-            const imageUrl = 'https://tenslant44.github.io/BopimoWebBuilds/Images/_(624)8.bmp';
-            window.open(imageUrl, '_blank');
+        function handleRedirect(isB2E1) {
+            if (isB2E1) {
+                // Instantly open the raw 0x0000B2E1 error graphic
+                window.open("https://file.garden/ZywDpNV1JUxg3GpL/0x0000B2E1.bmp", "_blank");
+            } else {
+                // Instantly open the generic 404 placeholder graphic
+                window.open("https://file.garden/ZywDpNV1JUxg3GpL/_(624)8.bmp", "_blank");
+            }
         }
     </script>
 
