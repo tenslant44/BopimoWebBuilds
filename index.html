@@ -43,24 +43,6 @@
         .game-btn:hover {
             background-color: #00adb5;
         }
-
-        /* Fullscreen Image Overlay Container */
-        #fullscreenContainer {
-            display: none;
-            position: fixed;
-            top: 0; left: 0;
-            width: 100vw; height: 100vh;
-            background-color: black;
-            justify-content: center;
-            align-items: center;
-            z-index: 99999;
-            cursor: pointer;
-        }
-        #fullscreenContainer img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
-        }
     </style>
 </head>
 <body>
@@ -69,76 +51,18 @@
 
     <div class="category-section prerelease">
         <h2>Prerelease Clients</h2>
-        <a class="game-btn missing-b2e1" href="#">1.0.5rc1</a>
+        <a class="game-btn" href="prerelease/1.0.5rc1/index.html">1.0.5rc1</a>
     </div>
 
     <div class="category-section finished">
         <h2>Finished Clients</h2>
-        <a class="game-btn missing-generic" href="#">Third Person Controller</a>
+        <a class="game-btn" href="Finish/ThirdPersonController/Third Person Controller.html">Third Person Controller</a>
     </div>
 
     <div class="category-section uncategorized">
         <h2>Not Categorized</h2>
         <a class="game-btn" href="https://calm-banoffee-df1e69.netlify.app/Beta1%20Rewrite3/index.html">Beta1 Rewrite3</a>
     </div>
-
-    <div id="fullscreenContainer" onclick="exitFullscreenImage()">
-        <img id="fullscreenImg" src="" alt="Error Graphic">
-    </div>
-
-    <script>
-        const container = document.getElementById('fullscreenContainer');
-        const fsImg = document.getElementById('fullscreenImg');
-
-        document.querySelectorAll('.game-btn').forEach(button => {
-            button.addEventListener('click', function(e) {
-                if (this.classList.contains('missing-b2e1')) {
-                    e.preventDefault();
-                    launchFullscreenImage("https://file.garden/ZywDpNV1JUxg3GpL/0x0000B2E1.bmp");
-                } 
-                else if (this.classList.contains('missing-generic')) {
-                    e.preventDefault();
-                    launchFullscreenImage("https://file.garden/ZywDpNV1JUxg3GpL/_(624)8.bmp");
-                }
-            });
-        });
-
-        function launchFullscreenImage(imgUrl) {
-            // Set the target image source
-            fsImg.src = imgUrl;
-            // Reveal the black container layout
-            container.style.display = 'flex';
-
-            // Command the web browser to switch into true fullscreen mode
-            if (container.requestFullscreen) {
-                container.requestFullscreen();
-            } else if (container.webkitRequestFullscreen) { /* Safari */
-                container.webkitRequestFullscreen();
-            } else if (container.msRequestFullscreen) { /* IE11 */
-                container.msRequestFullscreen();
-            }
-        }
-
-        function exitFullscreenImage() {
-            // Close fullscreen session safely
-            if (document.exitFullscreen) {
-                document.exitFullscreen();
-            } else if (document.webkitExitFullscreen) {
-                document.webkitExitFullscreen();
-            }
-            // Re-hide the image view window
-            container.style.display = 'none';
-            fsImg.src = "";
-        }
-
-        // Listen for standard Esc keyboard key hits to keep container display properties in sync
-        document.addEventListener('fullscreenchange', () => {
-            if (!document.fullscreenElement) {
-                container.style.display = 'none';
-                fsImg.src = "";
-            }
-        });
-    </script>
 
 </body>
 </html>
