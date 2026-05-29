@@ -51,12 +51,12 @@
 
     <div class="category-section prerelease">
         <h2>Prerelease Clients</h2>
-        <a class="game-btn client-b2e1" href="prerelease/1.0.5rc1/index.html">1.0.5rc1</a>
+        <a class="game-btn missing-b2e1" href="#">1.0.5rc1</a>
     </div>
 
     <div class="category-section finished">
         <h2>Finished Clients</h2>
-        <a class="game-btn" href="Finish/ThirdPersonController/Third Person Controller.html">Third Person Controller</a>
+        <a class="game-btn missing-generic" href="#">Third Person Controller</a>
     </div>
 
     <div class="category-section uncategorized">
@@ -67,37 +67,18 @@
     <script>
         document.querySelectorAll('.game-btn').forEach(button => {
             button.addEventListener('click', function(e) {
-                e.preventDefault();
-                const targetUrl = this.getAttribute('href');
-                const isB2E1Client = this.classList.contains('client-b2e1');
-
-                // Quick backend verification to see if the game files exist
-                fetch(targetUrl, { method: 'HEAD' })
-                .then(response => {
-                    if (response.ok) {
-                        // Success: Load the live game build!
-                        window.location.href = targetUrl;
-                    } else {
-                        // 404 Error: Send to the designated File Garden image path
-                        handleRedirect(isB2E1Client);
-                    }
-                })
-                .catch(() => {
-                    // Fail-safe network block trigger
-                    handleRedirect(isB2E1Client);
-                });
+                // If it's a known missing build, stop the normal link and open File Garden instantly
+                if (this.classList.contains('missing-b2e1')) {
+                    e.preventDefault();
+                    window.open("https://file.garden/ZywDpNV1JUxg3GpL/0x0000B2E1.bmp", "_blank");
+                } 
+                else if (this.classList.contains('missing-generic')) {
+                    e.preventDefault();
+                    window.open("https://file.garden/ZywDpNV1JUxg3GpL/_(624)8.bmp", "_blank");
+                }
+                // Otherwise, the script does nothing and lets the real Netlify URL load normally!
             });
         });
-
-        function handleRedirect(isB2E1) {
-            if (isB2E1) {
-                // Instantly open the raw 0x0000B2E1 error graphic
-                window.open("https://file.garden/ZywDpNV1JUxg3GpL/0x0000B2E1.bmp", "_blank");
-            } else {
-                // Instantly open the generic 404 placeholder graphic
-                window.open("https://file.garden/ZywDpNV1JUxg3GpL/_(624)8.bmp", "_blank");
-            }
-        }
     </script>
 
 </body>
