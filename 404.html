@@ -2,77 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> </title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #121212;
-            color: #ffffff;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            box-sizing: border-box;
-        }
-
-        .error-container {
-            background: #1c1c1f;
-            border: 2px solid #ff3333;
-            border-radius: 8px;
-            width: fit-content;
-            max-width: 90%;
-            padding: 25px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.7);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .error-image {
-            max-width: 100%;
-            height: auto;
-            border-radius: 4px;
-            margin-bottom: 20px;
-        }
-
-        .back-btn {
-            background: #393e46;
-            color: white;
-            border: none;
-            padding: 12px 30px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 1rem;
-            text-decoration: none;
-            transition: background 0.2s;
-        }
-
-        .back-btn:hover {
-            background-color: #00adb5;
-        }
-    </style>
+    <title>404 Not Found</title>
 </head>
 <body>
-
-    <div class="error-container">
-        <img id="errorImg" class="error-image" src="/BopimoWebBuilds/Images/_(624)8.bmp" alt="404 Error: File Not Found">
-        <a href="https://tenslant44.github.io/BopimoWebBuilds/index.html" class="back-btn">Go Back to Clients</a>
-    </div>
-
     <script>
-        // Extra fallback link check in case absolute URLs get tangled by the browser
-        const img = document.getElementById('errorImg');
-        img.onerror = function() {
-            if (!img.src.includes('https://tenslant44.github.io')) {
-                img.src = 'https://tenslant44.github.io/BopimoWebBuilds/Images/_(624)8.bmp';
-            }
-        };
+        // Instantly force the browser to open just the raw image file
+        window.location.replace("https://tenslant44.github.io/BopimoWebBuilds/Images/_(624)8.bmp");
     </script>
-
 </body>
 </html>
