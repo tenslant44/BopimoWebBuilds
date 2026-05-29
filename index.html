@@ -65,29 +65,40 @@
     </div>
 
     <script>
-        // Monitor link clicks to catch 404 errors before the browser leaves the site
         document.querySelectorAll('.game-btn').forEach(button => {
             button.addEventListener('click', function(e) {
                 e.preventDefault();
                 const targetUrl = this.getAttribute('href');
 
-                // Ping the file path to verify it exists
+                // Dynamic background file checker
                 fetch(targetUrl, { method: 'HEAD' })
                 .then(response => {
                     if (response.ok) {
-                        // Success: Open the game build normally
+                        // Success: The game exists, proceed normally
                         window.location.href = targetUrl;
                     } else {
-                        // Error 404: Open just the image file in a brand new tab
-                        window.open('/BopimoWebBuilds/Images/_(624)8.bmp', '_blank');
+                        // 404 Triggered: Trigger image redirect
+                        openFallbackImage();
                     }
                 })
                 .catch(() => {
-                    // Network/Path Failure fallback: Open the image file in a new tab
-                    window.open('/BopimoWebBuilds/Images/_(624)8.bmp', '_blank');
+                    // Network/CORS block fallback
+                    openFallbackImage();
                 });
             });
         });
+
+        function openFallbackImage() {
+            // Generates absolute URL path combinations to fully prevent any more browser 404 resource errors
+            const fallbackPaths = [
+                'https://tenslant44.github.io/BopimoWebBuilds/Images/_(624)8.bmp',
+                './Images/_(624)8.bmp',
+                'Images/_(624)8.bmp'
+            ];
+            
+            // Fires open the tab immediately with the absolute top-tier domain link
+            window.open(fallbackPaths[0], '_blank');
+        }
     </script>
 
 </body>
