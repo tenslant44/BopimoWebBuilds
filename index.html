@@ -70,34 +70,28 @@
                 e.preventDefault();
                 const targetUrl = this.getAttribute('href');
 
-                // Dynamic background file checker
+                // Quick test to check if the client web folder path actually exists
                 fetch(targetUrl, { method: 'HEAD' })
                 .then(response => {
                     if (response.ok) {
-                        // Success: The game exists, proceed normally
+                        // The game folder is online! Go to it normally
                         window.location.href = targetUrl;
                     } else {
-                        // 404 Triggered: Trigger image redirect
-                        openFallbackImage();
+                        // 404 Error: Open JUST the raw image file directly in a new tab
+                        openRawImage();
                     }
                 })
                 .catch(() => {
-                    // Network/CORS block fallback
-                    openFallbackImage();
+                    // Fallback for CORS/Network restrictions: Open raw image in a new tab
+                    openRawImage();
                 });
             });
         });
 
-        function openFallbackImage() {
-            // Generates absolute URL path combinations to fully prevent any more browser 404 resource errors
-            const fallbackPaths = [
-                'https://tenslant44.github.io/BopimoWebBuilds/Images/_(624)8.bmp',
-                './Images/_(624)8.bmp',
-                'Images/_(624)8.bmp'
-            ];
-            
-            // Fires open the tab immediately with the absolute top-tier domain link
-            window.open(fallbackPaths[0], '_blank');
+        function openRawImage() {
+            // Uses a fully verified absolute path pointing directly to your image file
+            const imageUrl = 'https://tenslant44.github.io/BopimoWebBuilds/Images/_(624)8.bmp';
+            window.open(imageUrl, '_blank');
         }
     </script>
 
