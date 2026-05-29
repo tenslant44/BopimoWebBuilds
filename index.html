@@ -43,51 +43,6 @@
         .game-btn:hover {
             background-color: #00adb5;
         }
-
-        /* Custom Windows-style Error Popup Box */
-        .error-overlay {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.7);
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-        .error-box {
-            background: #1c1c1f;
-            border: 2px solid #ff3333;
-            border-radius: 6px;
-            width: 400px;
-            padding: 20px;
-            text-align: left;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-        }
-        .error-header {
-            color: #ff3333;
-            font-weight: bold;
-            font-size: 1.1rem;
-            margin-bottom: 10px;
-            display: flex;
-            justify-content: space-between;
-        }
-        .error-msg {
-            color: #d1d1d6;
-            font-size: 0.95rem;
-            margin-bottom: 20px;
-            line-height: 1.4;
-        }
-        .close-btn {
-            background: #ff3333;
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: bold;
-            float: right;
-        }
-        .close-btn:hover { background: #ff5555; }
     </style>
 </head>
 <body>
@@ -109,51 +64,30 @@
         <a class="game-btn" href="https://calm-banoffee-df1e69.netlify.app/Beta1%20Rewrite3/index.html">Beta1 Rewrite3</a>
     </div>
 
-    <div id="errorOverlay" class="error-overlay">
-        <div class="error-box">
-            <div class="error-header">
-                <span>SYSTEM ERROR: 0x0000B2E1</span>
-            </div>
-            <div class="error-msg">
-                <strong>ERROR_CLIENT_LIST_MISMATCH</strong><br><br>
-                The requested client is explicitly registered on the deployment list index, but the target directory or game files could not be found on the server.
-            </div>
-            <button class="close-btn" onclick="closeError()">OK</button>
-        </div>
-    </div>
-
     <script>
-        // Intercept button clicks to verify files exist
+        // Monitor link clicks to catch 404 errors before the browser leaves the site
         document.querySelectorAll('.game-btn').forEach(button => {
             button.addEventListener('click', function(e) {
                 e.preventDefault();
                 const targetUrl = this.getAttribute('href');
 
-                // Perform a background ping check to see if the file actually exists
+                // Ping the file path to verify it exists
                 fetch(targetUrl, { method: 'HEAD' })
                 .then(response => {
                     if (response.ok) {
-                        // File exists, go to the page normally
+                        // Success: Open the game build normally
                         window.location.href = targetUrl;
                     } else {
-                        // File not found on server (404), throw custom error 0x0000B2E1
-                        showError();
+                        // Error 404: Open just the image file in a brand new tab
+                        window.open('/BopimoWebBuilds/Images/_(624)8.bmp', '_blank');
                     }
                 })
                 .catch(() => {
-                    // Network failure / missing path completely
-                    showError();
+                    // Network/Path Failure fallback: Open the image file in a new tab
+                    window.open('/BopimoWebBuilds/Images/_(624)8.bmp', '_blank');
                 });
             });
         });
-
-        function showError() {
-            document.getElementById('errorOverlay').style.display = 'flex';
-        }
-
-        function closeError() {
-            document.getElementById('errorOverlay').style.display = 'none';
-        }
     </script>
 
 </body>
